@@ -1,10 +1,20 @@
-const {Pool} = require('pg');
+const { DataSource } = require("typeorm");
+const Note = require('./entities/note');
+const User = require('./entities/user');
 
-const pool = new Pool({
+const AppDataSource = new DataSource({
+    type: 'postgres',
     host: 'localhost',
     port: 5432,
-    user: 'postgres',
+    username: 'postgres',
     password: 'youmna12345',
     database: 'notes_db',
+    synchronize: true,
+    logging: false,
+    entities: [Note, User],
+    migrations: [],
+    subscribers: [],
 });
-module.exports = pool;
+
+
+module.exports = AppDataSource; 
